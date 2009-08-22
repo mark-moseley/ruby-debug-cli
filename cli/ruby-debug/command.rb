@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'columnize'
-require 'ruby-debug/helper'
+require_relative 'helper'
 
 module Debugger
   RUBY_DEBUG_DIR = File.expand_path(File.dirname(__FILE__)) unless

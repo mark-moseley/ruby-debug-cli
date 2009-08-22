@@ -1,5 +1,5 @@
-require 'ruby-debug/interface'
-require 'ruby-debug/command'
+require_relative 'interface'
+require_relative 'command'
 
 module Debugger
 
