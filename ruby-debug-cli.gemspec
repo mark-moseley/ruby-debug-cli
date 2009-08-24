@@ -1,13 +1,13 @@
 # -*- encoding: utf-8 -*-
  
 Gem::Specification.new do |s|
-  s.name = %q{ruby-debug-cli}
-  s.version = "0.11.4"
+  s.name = %q{ruby-debug19}
+  s.version = "0.11.5"
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Kent Sibilev"]
-  s.date = %q{2009-08-17}
+  s.authors = ["Kent Sibilev", "Mark Moseley"]
+  s.date = %q{2009-08-24}
   s.description = %q{A generic command line interface for ruby-debug.}
-  s.email = %q{ksibilev@yahoo.com}
+  s.email = %q{mark@fast-software.com}
 #  s.extra_rdoc_files = [
 #    "README"
 #  ]
@@ -51,18 +51,18 @@ Gem::Specification.new do |s|
     "cli/ruby-debug/commands/trace.rb",
     "cli/ruby-debug/commands/variables.rb"
   ]
-  s.homepage = %q{http://rubyforge.org/projects/ruby-debug/}
+  s.homepage = %q{http://rubyforge.org/projects/ruby-debug19/}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_path = "cli"
   s.bindir = "bin"
   s.executables = [ "rdebug" ]
   s.required_ruby_version = Gem::Requirement.new(">= 1.8.2")
-  s.rubyforge_project = %q{ruby-debug}
+  s.rubyforge_project = %q{ruby-debug19}
   s.rubygems_version = %q{1.3.4}
   s.summary = %q{Command line interface (CLI) for ruby-debug-base}
   s.add_dependency("columnize", ">= 0.3.1")
-  s.add_dependency("mark-moseley-linecache", ">= 0.5.9")
-  s.add_dependency("mark-moseley-ruby-debug-base", ">= 0.11.13")
+  s.add_dependency("linecache19", ">= 0.5.11")
+  s.add_dependency("ruby-debug-base19", ">= 0.11.15")
  
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
