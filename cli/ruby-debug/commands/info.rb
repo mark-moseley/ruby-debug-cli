@@ -91,7 +91,7 @@ item. If \'verbose\' is given then the entire stack frame is shown.'],
     end
     
     def execute
-      if @match[1].empty?
+      if !@match[1]
         errmsg "\"info\" must be followed by the name of an info command:\n"
         print "List of info subcommands:\n\n"
         for subcmd in Subcommands do
