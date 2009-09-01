@@ -2,10 +2,10 @@
  
 Gem::Specification.new do |s|
   s.name = %q{ruby-debug19}
-  s.version = "0.11.5"
+  s.version = "0.11.6"
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kent Sibilev", "Mark Moseley"]
-  s.date = %q{2009-08-24}
+  s.date = %q{2009-09-01}
   s.description = %q{A generic command line interface for ruby-debug.}
   s.email = %q{mark@fast-software.com}
 #  s.extra_rdoc_files = [
@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
     "cli/ruby-debug/commands/help.rb",
     "cli/ruby-debug/commands/info.rb",
     "cli/ruby-debug/commands/irb.rb",
+    "cli/ruby-debug/commands/jump.rb",
     "cli/ruby-debug/commands/kill.rb",
     "cli/ruby-debug/commands/list.rb",
     "cli/ruby-debug/commands/method.rb",
@@ -62,7 +63,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Command line interface (CLI) for ruby-debug-base}
   s.add_dependency("columnize", ">= 0.3.1")
   s.add_dependency("linecache19", ">= 0.5.11")
-  s.add_dependency("ruby-debug-base19", ">= 0.11.15")
+  s.add_dependency("ruby-debug-base19", ">= 0.11.19")
  
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
