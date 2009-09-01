@@ -10,7 +10,7 @@ module Debugger
 
     def regexp
       / ^\s*
-         (?:jump) \s*
+         j(?:ump)? \s*
          (?:\s+(\S+))?\s*
          (?:\s+(\S+))?\s*
          $
@@ -24,6 +24,7 @@ module Debugger
         return false
       end
       line = @match[1].to_i
+      line = @state.context.frame_line(0) + line if @match[1][0] == '+' or @match[1][0] == '-'
       file = @match[2]
       file = @state.context.frame_file(file.to_i) if numeric?(file)
       file = @state.context.frame_file(0) if !file
@@ -42,9 +43,11 @@ module Debugger
 
       def help(cmd)
         %{
-          jump [line]
+          j[ump] line\tjump to line number (absolute)
+          j[ump] -line\tjump back to line (relative)
+          j[ump] +line\tjump ahead to line (relative)
 
-          jump to line
+          Change the next line of code to be executed.
          }
      end
     end
