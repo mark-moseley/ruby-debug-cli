@@ -18,21 +18,32 @@ module Debugger
     end
 
     def execute
-      stack_size = Debugger.current_context.stack_size
+      if !@match[1]
+        errmsg "\"jump\" must be followed by a line number\n"
+        return
+      end
       if !numeric?(@match[1])
         puts "Bad line number: " + @match[1]
-        return false
+        return
       end
       line = @match[1].to_i
       line = @state.context.frame_line(0) + line if @match[1][0] == '+' or @match[1][0] == '-'
+      if line == @state.context.frame_line(0)
+        CommandProcessor.print_location_and_text(@state.context.frame_file(0), line)
+        return
+      end
       file = @match[2]
       file = @state.context.frame_file(file.to_i) if numeric?(file)
       file = @state.context.frame_file(0) if !file
-      if Debugger.current_context.jump(line, file)
-        @state.line = line if stack_size == Debugger.current_context.stack_size
-        CommandProcessor.print_location_and_text(file, line)
-      else
-        puts "failed; PC unchanged"
+      case Debugger.current_context.jump(line, file)
+      when 0
+        @state.proceed
+      when 1
+        errmsg "Not possible to jump from here\n"
+      when 2
+        errmsg "Couldn't find debugged frame\n"
+      when 3
+        errmsg "Couldn't find active code at " + file + ":" + line.to_s + "\n"
       end
     end
 
