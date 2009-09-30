@@ -164,7 +164,7 @@ module Kernel
   # right after the last statement in some scope, because the next
   # step will take you out of some scope.
   def debugger(steps = 1)
-    Debugger.start unless Debugger.started?
+    Debugger.start
     Debugger.run_init_script(StringIO.new)
     if 0 == steps
       Debugger.current_context.stop_frame = 0
