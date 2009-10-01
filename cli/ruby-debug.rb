@@ -44,13 +44,11 @@ module Debugger
     #
     # Starts a remote debugger.
     #
-    def start_remote(host = nil, port = PORT, post_mortem = false)
+    def start_remote(host = nil, port = PORT)
       return if @thread
-      return if started?
 
       self.interface = nil
       start
-      self.post_mortem if post_mortem
 
       if port.kind_of?(Array)
         cmd_port, ctrl_port = port
@@ -85,7 +83,6 @@ module Debugger
     alias start_server start_remote
     
     def start_control(host = nil, ctrl_port = PORT + 1) # :nodoc:
-      raise "Debugger is not started" unless started?
       return if defined?(@control_thread) && @control_thread
       @control_thread = DebugThread.new do
         server = TCPServer.new(host, ctrl_port)

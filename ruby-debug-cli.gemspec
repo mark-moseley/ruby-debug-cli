@@ -63,7 +63,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Command line interface (CLI) for ruby-debug-base}
   s.add_dependency("columnize", ">= 0.3.1")
   s.add_dependency("linecache19", ">= 0.5.11")
-  s.add_dependency("ruby-debug-base19", ">= 0.11.19")
+  s.add_dependency("ruby-debug-base19", ">= 0.12.0")
  
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

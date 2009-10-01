@@ -124,12 +124,8 @@ def debug_program(options)
 
   bt = Debugger.debug_load(Debugger::PROG_SCRIPT, options.stop, false)
   if bt
-    if options.post_mortem
-      Debugger.handle_post_mortem(bt)
-    else
-      print bt.backtrace.map{|l| "\t#{l}"}.join("\n"), "\n"
-      print "Uncaught exception: #{bt}\n"
-    end
+    print bt.backtrace.map{|l| "\t#{l}"}.join("\n"), "\n"
+    print "Uncaught exception: #{bt}\n"
   end
 end
 
@@ -153,14 +149,12 @@ options = OpenStruct.new(
   'client'             => false,
   'control'            => true,
   'cport'              => Debugger::PORT + 1,
-  'frame_bind'         => false,
   'host'               => nil,
   'quit'               => true,
   'no_rewrite_program' => false,
   'stop'               => true,
   'nx'                 => false,
   'port'               => Debugger::PORT,
-  'post_mortem'        => false,
   'restart_script'     => nil,
   'script'             => nil,
   'server'             => false,
@@ -198,7 +192,6 @@ EOB
       ENV['COLUMNS'] = '120' if ENV['COLUMNS'].to_i < 120
       options.control = false
       options.quit = false
-      options.post_mortem = true
     end
     opts.on('--emacs-basic', 'Activates basic Emacs mode') do 
       ENV['EMACS'] = '1'
@@ -209,12 +202,6 @@ EOB
     end
     opts.on('-I', '--include PATH', String, 'Add PATH to $LOAD_PATH') do |path|
       $LOAD_PATH.unshift(path)
-    end
-    opts.on('--keep-frame-binding', 'Keep frame bindings') do 
-      options.frame_bind = true
-    end
-    opts.on('-m', '--post-mortem', 'Activate post-mortem mode') do 
-      options.post_mortem = true
     end
     opts.on('--no-control', 'Do not automatically start control thread') do 
       options.control = false
@@ -352,12 +339,10 @@ else
   
   # set options
   Debugger.wait_connection = options.wait
-  Debugger.keep_frame_binding = options.frame_bind
   
   if options.server
     # start remote mode
-    Debugger.start_remote(options.host, [options.port, options.cport], 
-                          options.post_mortem) do
+    Debugger.start_remote(options.host, [options.port, options.cport]) do
       # load initrc script
       Debugger.run_init_script(StringIO.new) unless options.nx
     end
@@ -383,8 +368,6 @@ else
       Debugger.run_script(options.script)
     end
 
-    # activate post-mortem
-    Debugger.post_mortem if options.post_mortem
     options.stop = false if options.tracing
     Debugger.tracing = options.tracing
 
